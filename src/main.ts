@@ -55,7 +55,7 @@ new ClipboardFileListener(imgData => {
     canvas.width = tempImg.width;
     canvas.height = tempImg.height;
 
-    drawTransformedImage(c, tempImg, transformRGBToPerceivedLightnessQuick)
+    // drawTransformedImage(c, tempImg, transformRGBToPerceivedLightnessQuick)
     drawTransformedImage(c, tempImg, () => { })
     drawTransformedImage(c, tempImg, transformRGBToPerceivedLightness)
   }
