@@ -43,7 +43,7 @@ const c = canvas.getContext('2d');
 if (!c) throw new Error("ERROR: 2d context not supported!")
 
 // ClipboardFileListener
-var a = new ClipboardFileListener(imgData => {
+new ClipboardFileListener(imgData => {
   if (typeof imgData !== "string") throw new Error("Error: arraybuffer not supported!")
 
   const tempImg = document.createElement('img');
