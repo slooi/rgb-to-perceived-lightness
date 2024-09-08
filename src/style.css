@@ -6,12 +6,24 @@ html {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-img {
-  display: block;
+#header {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
 }
 
 #app {
   display: flex;
-  justify-content: center;
-  padding: 2rem;
+  flex-direction: column;
+  align-items: center;
+  /* background-color: rgb(255, 255, 255); */
+  row-gap: 1rem;
+  padding: 1rem 0;
+  border-top: 0.25rem solid #AAD;
+  border-bottom: 0.25rem solid #AAD;
+
+  background: linear-gradient(45deg, transparent 49%, #AAD 49% 51%, transparent 51%), linear-gradient(-45deg, transparent 49%, #AAD 49% 51%, transparent 51%);
+  background-size: 1em 1em;
+  background-color: #ffffff;
+  opacity: 1
 }
