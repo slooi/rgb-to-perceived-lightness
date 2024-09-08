@@ -73,8 +73,11 @@ function drawTransformedImage(c: CanvasRenderingContext2D, originalImg: HTMLImag
 
   // Create new image
   const newImage = document.createElement("img")
+  const container = document.createElement("div")
   newImage.src = canvas.toDataURL();
-  document.getElementById("app")?.prepend(newImage)
+  container.classList.add("img-container")
+  container.append(newImage)
+  document.getElementById("content")?.prepend(container)
 }
 function transformRGBToPerceivedLightnessQuick(data: Uint8ClampedArray) {
   for (let i = 0; i < data.length; i += 4) {
