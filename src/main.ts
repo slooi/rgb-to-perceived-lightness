@@ -55,13 +55,31 @@ new ClipboardFileListener(imgData => {
     canvas.width = tempImg.width;
     canvas.height = tempImg.height;
 
-    // drawTransformedImage(c, tempImg, transformRGBToPerceivedLightnessQuick)
-    drawTransformedImage(c, tempImg, () => { })
-    drawTransformedImage(c, tempImg, transformRGBToPerceivedLightness)
+    // getTransformedImageDataURL(c, tempImg, transformRGBToPerceivedLightnessQuick)
+    const transDataUrl = getTransformedImageDataURL(c, tempImg, () => { })
+    const oriDataUrl = getTransformedImageDataURL(c, tempImg, transformRGBToPerceivedLightness)
+
+
+    // Create new image
+    const newImage = document.createElement("img")
+    const newImage2 = document.createElement("img")
+    newImage.src = transDataUrl
+    newImage2.src = oriDataUrl
+
+    const shadowContainer = document.createElement("div")
+    shadowContainer.classList.add("shadow-container")
+    shadowContainer.append(newImage)
+    shadowContainer.append(newImage2)
+
+    const container = document.createElement("div")
+    container.classList.add("img-container")
+    container.append(shadowContainer)
+
+    document.getElementById("content")?.prepend(container)
   }
 })
 
-function drawTransformedImage(c: CanvasRenderingContext2D, originalImg: HTMLImageElement, transformFunc: (data: Uint8ClampedArray) => void) {
+function getTransformedImageDataURL(c: CanvasRenderingContext2D, originalImg: HTMLImageElement, transformFunc: (data: Uint8ClampedArray) => void) {
   // Draw original img then get data
   c.drawImage(originalImg, 0, 0);
   const imageData = c.getImageData(0, 0, canvas.width, canvas.height);
@@ -70,14 +88,7 @@ function drawTransformedImage(c: CanvasRenderingContext2D, originalImg: HTMLImag
   transformFunc(imageData.data)
   c.putImageData(imageData, 0, 0);
 
-
-  // Create new image
-  const newImage = document.createElement("img")
-  const container = document.createElement("div")
-  newImage.src = canvas.toDataURL();
-  container.classList.add("img-container")
-  container.append(newImage)
-  document.getElementById("content")?.prepend(container)
+  return canvas.toDataURL();
 }
 function transformRGBToPerceivedLightnessQuick(data: Uint8ClampedArray) {
   for (let i = 0; i < data.length; i += 4) {
