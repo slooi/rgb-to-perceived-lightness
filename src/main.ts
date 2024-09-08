@@ -107,16 +107,22 @@ function transformRGBToPerceivedLightnessQuick(data: Uint8ClampedArray) {
 
 function transformRGBToPerceivedLightness(data: Uint8ClampedArray) {
   for (let i = 0; i < data.length; i += 4) {
-    const rHat = data[i] / 255
-    const gHat = data[i + 1] / 255
-    const bHat = data[i + 2] / 255
+    const r = data[i] / 255
+    const g = data[i + 1] / 255
+    const b = data[i + 2] / 255
 
-    const perceivedLightness = ColorCorrection.YtoLstar(ColorCorrection.rgbToY(rHat, gHat, bHat))
+    // const luma = Math.sqrt(0.299 * r ** 2 + 0.587 * g ** 2 + 0.114 * b ** 2)
+    // const luma = 0.2126 * r + 0.7152 * g + 0.0722 * b
+    const luma = (0.299 * r + 0.587 * g + 0.114 * b)
+    data[i] = luma * 255
+    data[i + 1] = luma * 255
+    data[i + 2] = luma * 255
 
-    data[i] = perceivedLightness * 255 / 100; // Red channel
-    data[i + 1] = perceivedLightness * 255 / 100; // Green channel
-    data[i + 2] = perceivedLightness * 255 / 100; // Blue channel
-    //data[i + 3] = data[i + 3]; // Alpha (unchanged)
+    // const perceivedLightness = ColorCorrection.YtoLstar(ColorCorrection.rgbToY(r, g, b))
+    // data[i] = perceivedLightness * 255 / 100; // Red channel
+    // data[i + 1] = perceivedLightness * 255 / 100; // Green channel
+    // data[i + 2] = perceivedLightness * 255 / 100; // Blue channel
+    // data[i + 3] = data[i + 3]; // Alpha (unchanged)
   }
 }
 
