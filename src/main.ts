@@ -1,5 +1,7 @@
 import './style.css'
-// https://stackoverflow.com/questions/596216/formula-to-determine-perceived-brightness-of-rgb-color
+// source: https://stackoverflow.com/questions/596216/formula-to-determine-perceived-brightness-of-rgb-color
+// source: https://www.w3.org/TR/AERT/#color-contrast
+
 class ClipboardFileListener {
   constructor(callback: (imgData: string | ArrayBuffer) => any) {
     document.addEventListener("paste", event => {
