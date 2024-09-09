@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="./vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Image to luminance</title>
+  <script type="module" crossorigin>(function(){const e=document.createElement("link").relList;if(e&&e.supports&&e.supports("modulepreload"))return;for(const t of document.querySelectorAll('link[rel="modulepreload"]'))n(t);new MutationObserver(t=>{for(const r of t)if(r.type==="childList")for(const s of r.addedNodes)s.tagName==="LINK"&&s.rel==="modulepreload"&&n(s)}).observe(document,{childList:!0,subtree:!0});function i(t){const r={};return t.integrity&&(r.integrity=t.integrity),t.referrerPolicy&&(r.referrerPolicy=t.referrerPolicy),t.crossOrigin==="use-credentials"?r.credentials="include":t.crossOrigin==="anonymous"?r.credentials="omit":r.credentials="same-origin",r}function n(t){if(t.ep)return;t.ep=!0;const r=i(t);fetch(t.href,r)}})();class h{constructor(e){document.addEventListener("paste",i=>{var r;const n=(r=i.clipboardData)==null?void 0:r.items;let t=0;if(console.log("items",n),!n)throw new Error("Error: no items found");for(let s=0;s<n.length;s++){const c=n[s];if(console.log("item",c),c.kind==="file"){console.log("item",c);const l=c.getAsFile(),m=new FileReader;if(m.onload=d=>{var f,g;if(!((f=d.target)!=null&&f.result))throw new Error("Error: file format not supported");e((g=d.target)==null?void 0:g.result)},m.onerror=d=>{throw new Error(`${d}`)},!l)throw new Error("Error: blob was null");m.readAsDataURL(l)}else t++}if(t===n.length)throw new Error("No image/file found")})}}const a=document.createElement("canvas"),u=a.getContext("2d");if(!u)throw new Error("ERROR: 2d context not supported!");new h(o=>{if(typeof o!="string")throw new Error("Error: arraybuffer not supported!");const e=document.createElement("img");e.src=o,e.onload=()=>{var l;console.log("loaded"),a.width=e.width,a.height=e.height;const i=p(u,e,()=>{}),n=p(u,e,w),t=document.createElement("img"),r=document.createElement("img");t.src=i,r.src=n;const s=document.createElement("div");s.classList.add("shadow-container"),s.append(t),s.append(r);const c=document.createElement("div");c.classList.add("img-container"),c.append(s),(l=document.getElementById("content"))==null||l.prepend(c)}});function p(o,e,i){o.drawImage(e,0,0);const n=o.getImageData(0,0,a.width,a.height);return i(n.data),o.putImageData(n,0,0),a.toDataURL()}function w(o){for(let e=0;e<o.length;e+=4){const i=o[e]/255,n=o[e+1]/255,t=o[e+2]/255,r=.299*i+.587*n+.114*t;o[e]=r*255,o[e+1]=r*255,o[e+2]=r*255}}
+</script>
+  <style rel="stylesheet" crossorigin>*,html{font-family:Arial,Helvetica,sans-serif;padding:0;margin:0;box-sizing:border-box;--app-color: #ffffff;--pattern-color: rgb(187, 187, 187);--border-color: rgb(207, 207, 207)}html{display:grid;text-align:center}h1{margin:3rem}#content{display:grid;gap:2rem;padding-bottom:5rem}.img-container{display:flex;justify-content:center}.shadow-container{display:flex;box-shadow:.2rem .2rem 10px #000}
+</style>
+</head>
+
+<body>
+  <h1><b><i>CTRL+V</i></b> <span style="font-weight: 300;">to convert image to luminance scale</span></h1>
+
+  <div id="content"></div>
+</body>
+
+</html>
